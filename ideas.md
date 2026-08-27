@@ -1,66 +1,69 @@
-# Direção de design — recriação AGIR LEGAL
+# Direção de design — NEXO LEGAL
 
-## Referência como especificação
+## Referência como estrutura funcional
 
-Esta é uma tarefa de recriação visual. A referência pública em `https://agir-legal.web.app/` é a especificação de base para composição, densidade, linguagem visual, navegação, hierarquia e comportamento observável. A fidelidade à referência prevalece sobre escolhas estilísticas alternativas.
+O aplicativo preserva a arquitetura compacta, mobile-first e de consulta operacional que orientou a versão inicial. A marca, a cor e os ativos são próprios: o nome NEXO LEGAL posiciona o produto como elo entre ocorrência, orientação operacional e fonte jurídica.
 
-## Abordagem escolhida: Aplicativo de consulta operacional
+## Abordagem escolhida: Central de decisão jurídico-operacional
 
 ### Movimento de design
 
-Interface PWA mobile-first de consulta jurídica-operacional, marcada por pragmatismo, contraste controlado e leitura rápida em contexto de campo.
+PWA institucional de alto contraste, inspirada na sinalética operacional contemporânea e em cadernos de campo: compacta, precisa e legível sob pressão.
 
 ### Princípios centrais
 
-1. Priorizar informação e ação rápida em uma coluna central de largura móvel.
-2. Criar hierarquia com títulos curtos, cartões densos e ícones lineares reconhecíveis.
-3. Manter uma paleta noturna de alto contraste, com amarelo-dourado reservando ênfase, sinalização e identidade.
-4. Preservar ações importantes sempre alcançáveis pela barra inferior e por pesquisa proeminente.
+1. Priorizar a ocorrência e a decisão imediata em uma coluna de consulta de largura móvel.
+2. Manter títulos diretos, cartões densos e ícones lineares como instrumentos de leitura rápida.
+3. Usar verde profundo como ambiente de concentração, marfim para leitura e cobre exclusivamente para ação, seleção e alerta.
+4. Deixar fontes, base legal e estado de atualização sempre próximos do conteúdo operacional.
 
 ### Filosofia de cor
 
-O azul-marinho quase preto sugere seriedade, discrição e foco. Superfícies azul-ardósia criam níveis de profundidade sem perder a sensação de app compacto. O dourado amarelado é uma luz funcional: comunica marca, estado ativo, chamadas de atenção e ícones sem transformar a tela em uma interface chamativa.
+O **verde institucional** reduz a agressividade visual e comunica estabilidade, proteção e critério. O **marfim técnico** amplia a legibilidade e evita a fadiga de uma tela puramente branca. O **cobre operacional** não decora: assinala foco, ação, seleção e atenção.
 
 ### Paradigma de layout
 
-Uma moldura de aplicativo compacto e vertical é a estrutura dominante. No desktop, a experiência não se estica em uma página de marketing: permanece uma tela de consulta com largura deliberadamente limitada e muito espaço negativo lateral. Internamente, as páginas alternam uma grade de atalhos, uma grade de resultados e detalhes sequenciais de leitura.
+Uma moldura vertical de aplicativo de campo permanece dominante em qualquer tela. No desktop, muito espaço negativo lateral protege a sensação de ferramenta móvel, e a informação continua sendo percorrida em sequência, não como um portal expansivo.
 
 ### Elementos de assinatura
 
-O projeto repete três motivos: o símbolo de escudo em traço fino, contornos discretos de cartões com brilho de superfície e o marcador amarelo-dourado de ação/seleção. A barra inferior ocupa uma faixa sólida e organiza a navegação com ícones compactos e rótulos curtos.
+O escudo de traço fino com três trajetórias convergentes é o selo da marca. Grades discretas, linhas de perímetro e marcas cobre de ação aparecem como linguagem de navegação e orientação, nunca como ornamento excessivo.
 
 ### Filosofia de interação
 
-Toda interação deve responder de modo direto: cartões levam a uma rota, a busca reduz os resultados imediatamente e conteúdos salvos usam armazenamento local. O aplicativo evita efeitos decorativos; feedback de toque, foco e seleção deve ser claro e rápido.
+Cada toque deve conduzir à próxima decisão: busca reduz resultados de imediato, cartões levam ao conteúdo, fontes externas abrem apenas quando solicitadas e favoritos permanecem locais. A resposta tátil é curta e inequívoca.
 
 ### Animação
 
-As transições usam opacidade e pequenos deslocamentos verticais de até 8px, com duração de 160–220ms e curva `cubic-bezier(0.23, 1, 0.32, 1)`. Cartões têm resposta tátil curta ao pressionar. A navegação inferior e os diálogos surgem sem exagero e respeitam `prefers-reduced-motion`.
+Entradas usam opacidade e deslocamento vertical de até 8px entre 160 e 220ms com `cubic-bezier(0.23, 1, 0.32, 1)`. Cartões comprimem levemente ao toque. Animação decorativa não é utilizada e `prefers-reduced-motion` é respeitado.
 
 ### Sistema tipográfico
 
-`Barlow Condensed` é usada nos títulos operacionais em caixa alta ou destaque, pela economia espacial e tom institucional. `Barlow` sustenta textos, descrições e controles pela legibilidade em telas compactas. Títulos de página usam peso 700–800; rótulos de cartões usam peso 700; textos descritivos usam 400–500.
+`Barlow Condensed` sustenta títulos operacionais e rótulos de alta densidade; `Barlow` sustenta textos, controles e fontes. Títulos usam peso 700–800; rótulos 700; explicações 400–500.
 
 ### Essência da marca
 
-Uma central de consulta jurídica-operacional para orientar decisões rápidas e responsáveis no cotidiano da segurança pública.
+**O elo jurídico-operacional que transforma uma ocorrência em decisão responsável, para profissionais de segurança pública que precisam consultar com rapidez e rastreabilidade.**
 
-Personalidade: **sóbria**, **direta**, **protetiva**.
+Personalidade: **criteriosa**, **protetiva**, **objetiva**.
 
 ### Voz da marca
 
-Títulos, CTAs e microcopy são objetivos e instrutivos, sem promessas vagas. Exemplos: “Consulte a situação antes de agir.” e “Encontre orientação por ocorrência, crime ou contexto.”
+Textos são diretos e procedimentais, sem promessas vagas. Exemplos: “Conecte a ocorrência à base legal.” e “Consulte o fundamento antes da decisão.”
 
 ### Wordmark e símbolo
 
-O wordmark combina o nome em caixa alta, com espaçamento compacto e dourado funcional. O símbolo é um escudo com marca de confirmação interna, desenhado como ícone vetorial original em fundo transparente e empregado em tamanho visível no cabeçalho e favicon.
+O wordmark NEXO LEGAL usa caixa alta compacta e cobre discreto. O símbolo é um escudo geométrico próprio com três vetores internos que convergem para um ponto central, associado à conexão entre fato, procedimento e norma.
 
 ### Cor de assinatura
 
-**Dourado de guarda — `#E4C95E`**. Ele deve aparecer somente em pontos de identidade, foco, seleção e ação para manter sua força visual.
+**Cobre de decisão — `#C7682C`**. Ele é reservado à ação, seleção, foco, alertas e pontos de identidade; grandes superfícies pertencem ao sistema verde institucional.
 
 ## Decisões de estilo
 
-- Em desktop, as rotas preservam uma moldura operacional compacta e sequencial; grades largas não devem transformar a aplicação em um catálogo expansivo.
-- O dourado de guarda permanece restrito a identidade, seleção, alerta, ação e numerais-chave. Grandes superfícies pertencem ao sistema azul-ardósia.
-- O escudo com confirmação atua como selo institucional de marca em cabeçalhos, estados críticos, alertas e conteúdo salvo, formando uma gramática visual única além dos ícones utilitários.
+- A interface não deve extrapolar a moldura de uma ferramenta de campo em desktop.
+- O verde institucional e o marfim técnico dominam superfícies e leitura; o cobre só informa estado ou ação.
+- O símbolo NEXO atua como selo de navegação, estado e cabeçalho, em tamanho visível e com espaço ao redor.
+- A marca exibida em qualquer tela é sempre **NEXO LEGAL**; nenhuma designação anterior, alternativa ou provisória permanece visível.
+- Listas de decisão preservam um fluxo vertical e sequencial, inclusive no desktop; o foco de campo prevalece sobre grades expansivas.
+- Ícones utilitários são neutros; o cobre de decisão `#C7682C` fica reservado para ação, seleção, foco, alerta e marca.

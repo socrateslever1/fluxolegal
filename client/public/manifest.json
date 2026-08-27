@@ -1,15 +1,15 @@
 {
-  "name": "AGIR LEGAL — Consulta operacional",
-  "short_name": "AGIR LEGAL",
+  "name": "NEXO LEGAL — Consulta operacional",
+  "short_name": "NEXO LEGAL",
   "description": "Guia operacional jurídico de consulta rápida.",
   "lang": "pt-BR",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#06131e",
-  "theme_color": "#06131e",
+  "background_color": "#123B31",
+  "theme_color": "#123B31",
   "icons": [
     {
-      "src": "/manus-storage/agir-legal-shield-mark_6aca9baa.png",
+      "src": "/manus-storage/nexo-legal-mark_20140c17.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

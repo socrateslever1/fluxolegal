@@ -1,6 +1,6 @@
 /**
- * Design reference: compact legal-operational PWA. The home screen keeps its
- * narrow app silhouette, utility-first shortcuts, navy surfaces and gold cues.
+ * Design reference: NEXO LEGAL keeps a narrow operational silhouette, with
+ * institutional green surfaces and copper cues for decision-oriented actions.
  */
 import { AppShell, Brand } from "@/components/AppShell";
 import { occurrences } from "@/data/appData";
@@ -9,14 +9,14 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 
 const shortcuts = [
-  { title: "Ocorrências", description: "Consulte orientações por situação", icon: ShieldCheck, path: "/ocorrencias" },
-  { title: "Apoiar projeto", description: "Ajude a manter o aplicativo", icon: HeartHandshake, path: "/apoiar" },
-  { title: "Legislação", description: "Consulte leis e artigos", icon: BookOpenText, path: "/legislacao" },
-  { title: "CICOMs", description: "Contatos e localizações", icon: Building2, path: "/cicoms" },
-  { title: "Favoritos", description: "Conteúdos salvos", icon: Star, path: "/favoritos" },
-  { title: "Consultados recentemente", description: "Nenhuma consulta local", icon: Clock3, path: "/ocorrencias" },
-  { title: "Atualizações", description: "Novidades jurídicas", icon: BellRing, path: "/atualizacoes" },
-  { title: "Ajustes", description: "Preferências do app", icon: Settings2, path: "/configuracoes" },
+  { title: "Atender ocorrência", description: "Localize o procedimento pela situação", icon: ShieldCheck, path: "/ocorrencias" },
+  { title: "Sustentar a base", description: "Contribua para manter a consulta", icon: HeartHandshake, path: "/apoiar" },
+  { title: "Pesquisar legislação", description: "Encontre norma, artigo ou tema", icon: BookOpenText, path: "/legislacao" },
+  { title: "Acionar CICOM", description: "Contatos e localizações úteis", icon: Building2, path: "/cicoms" },
+  { title: "Guardar referência", description: "Retome conteúdo salvo no aparelho", icon: Star, path: "/favoritos" },
+  { title: "Retomar consulta", description: "Acesse a lista de ocorrências", icon: Clock3, path: "/ocorrencias" },
+  { title: "Verificar mudanças", description: "Acompanhe a base jurídica", icon: BellRing, path: "/atualizacoes" },
+  { title: "Controle local", description: "Ajuste preferências de campo", icon: Settings2, path: "/configuracoes" },
 ];
 
 export default function Home() {

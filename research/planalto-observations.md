@@ -1,0 +1,7 @@
+# Observações do portal oficial de legislação
+
+Em 27/08/2026, o endereço `https://www4.planalto.gov.br/legislacao` foi aberto no navegador de análise. A resposta visual permaneceu em branco após nova tentativa de leitura, sem controles ou conteúdo detectável. O HTML capturado deverá ser tratado somente como dado para verificar se há redirecionamento, política de acesso ou dependência de renderização; essa situação impede recomendar uma integração de interface em tempo real sem uma camada de serviço resiliente.
+
+A extração textual do portal confirmou categorias de atos como códigos, leis ordinárias e complementares, estatutos, decretos, medidas provisórias, atos internacionais, jurisprudência e legislação estadual. O portal descreve uma base federal atualizada pela Secretaria Especial para Assuntos Jurídicos e permite consulta por termos no conteúdo integral e por filtros de identificação, período, situação, origem e fonte de publicação.
+
+A base alternativa `https://legislacao.presidencia.gov.br/` finalmente exibiu a pesquisa avançada no navegador após o carregamento. Foram detectados filtros públicos de tipo, situação, data inicial/final, autoridade signatária, referenda, origem e publicação em D.O.U. Entretanto, o portal antigo entregou uma página de proteção a automação para o navegador de análise; portanto, a arquitetura não deve depender de automação de tela ou de raspagem direta sem autorização e avaliação de estabilidade.

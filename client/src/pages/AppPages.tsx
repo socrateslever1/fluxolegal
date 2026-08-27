@@ -1,8 +1,8 @@
 /**
- * Design reference: legal-operational PWA with compact, high-contrast content
- * panels. Every route supports direct access and keeps important actions close.
+ * Design reference: NEXO LEGAL is a compact legal-operational PWA. Ivory text,
+ * deep green panels and copper action cues keep decisions legible in the field.
  */
-import { AppShell } from "@/components/AppShell";
+import { AppShell, BRAND_MARK_URL } from "@/components/AppShell";
 import { cicomGroups, lawGroups, occurrences, type Occurrence } from "@/data/appData";
 import {
   AlertTriangle, ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardList,
@@ -18,9 +18,9 @@ const favoritesImage = "/manus-storage/agir-legal-favorites-empty_3ba934db.png";
 
 function useFavorites() {
   const [favoriteSlugs, setFavoriteSlugs] = useState<string[]>(() => {
-    try { return JSON.parse(localStorage.getItem("agir-legal-favorites") ?? "[]") as string[]; } catch { return []; }
+    try { return JSON.parse(localStorage.getItem("nexo-legal-favorites") ?? localStorage.getItem("agir-legal-favorites") ?? "[]") as string[]; } catch { return []; }
   });
-  useEffect(() => { localStorage.setItem("agir-legal-favorites", JSON.stringify(favoriteSlugs)); }, [favoriteSlugs]);
+  useEffect(() => { localStorage.setItem("nexo-legal-favorites", JSON.stringify(favoriteSlugs)); }, [favoriteSlugs]);
   const toggle = (slug: string) => setFavoriteSlugs((current) => current.includes(slug) ? current.filter((entry) => entry !== slug) : [...current, slug]);
   return { favoriteSlugs, toggle };
 }
@@ -28,7 +28,7 @@ function useFavorites() {
 function PageHeading({ eyebrow, title, description, icon: Icon }: { eyebrow: string; title: string; description?: string; icon?: IconComponent }) {
   return <header className="page-heading page-enter">
     <span className="eyebrow">{eyebrow}</span>
-    <div className="page-heading__title">{Icon && <span className="heading-icon"><Icon size={20} /></span>}<h1>{title}</h1><img className="page-heading__seal" src="/manus-storage/agir-legal-shield-mark_6aca9baa.png" alt="" /></div>
+    <div className="page-heading__title">{Icon && <span className="heading-icon"><Icon size={20} /></span>}<h1>{title}</h1><img className="page-heading__seal" src={BRAND_MARK_URL} alt="" /></div>
     {description && <p>{description}</p>}
   </header>;
 }
@@ -146,8 +146,8 @@ const menuItems = [
 
 export function MenuPage() {
   const [, setLocation] = useLocation();
-  return <AppShell installHint><div className="wide-page narrow-page"><PageHeading eyebrow="Menu" title="AGIR LEGAL" description="Base jurídica disponível offline." />
-    <Panel className="menu-panel">{menuItems.map(([label, Icon, path, end]) => <button key={label} className="menu-row" onClick={() => setLocation(path)}><Icon size={19} /><span>{label}</span>{end ? <em>{end}</em> : <ChevronRight size={18} />}</button>)}<button className="menu-row" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={19} /><span>Instalar AGIR LEGAL</span><ChevronRight size={18} /></button></Panel>
+  return <AppShell installHint><div className="wide-page narrow-page"><PageHeading eyebrow="Menu" title="NEXO LEGAL" description="Base jurídica disponível offline." />
+    <Panel className="menu-panel">{menuItems.map(([label, Icon, path, end]) => <button key={label} className="menu-row" onClick={() => setLocation(path)}><Icon size={19} /><span>{label}</span>{end ? <em>{end}</em> : <ChevronRight size={18} />}</button>)}<button className="menu-row" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={19} /><span>Instalar NEXO LEGAL</span><ChevronRight size={18} /></button></Panel>
     <Panel className="status-panel"><h2>Status da base</h2><p><Wifi size={16} /> Online</p><span>Última sincronização: 27/08/2026, 02:45:43</span><small>O painel administrativo fica acessível somente por /admin.</small></Panel>
   </div></AppShell>;
 }
@@ -157,16 +157,16 @@ export function UpdatesPage() {
 }
 
 export function SettingsPage() {
-  const [minorOffense, setMinorOffense] = useState(() => localStorage.getItem("agir-legal-minor-offense") === "true");
-  useEffect(() => localStorage.setItem("agir-legal-minor-offense", String(minorOffense)), [minorOffense]);
+  const [minorOffense, setMinorOffense] = useState(() => (localStorage.getItem("nexo-legal-minor-offense") ?? localStorage.getItem("agir-legal-minor-offense")) === "true");
+  useEffect(() => localStorage.setItem("nexo-legal-minor-offense", String(minorOffense)), [minorOffense]);
   return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Preferências" title="Configurações" description="Preferências locais do aparelho." />
-    <Panel><h2>Aplicativo</h2><button className="gold-button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={17} /> Instalar AGIR LEGAL</button></Panel>
+    <Panel><h2>Aplicativo</h2><button className="gold-button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={17} /> Instalar NEXO LEGAL</button></Panel>
     <Panel><h2>Preferências locais</h2><label className="setting-toggle"><span><b>Identificar menor potencial ofensivo</b><small>Quando ativado, mostra a indicação de menor potencial ofensivo e libera o botão GERAR TCO nas ocorrências compatíveis.</small></span><input type="checkbox" checked={minorOffense} onChange={(event) => setMinorOffense(event.target.checked)} /><i aria-hidden="true" /></label></Panel>
   </div></AppShell>;
 }
 
 export function SupportPage() {
-  return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Apoio" title="Apoiar o projeto" description="Contribuição voluntária, de valor livre, para manter o AGIR LEGAL vivo e em melhoria constante." /><Panel className="support-panel"><span className="heading-icon"><HeartHandshake size={23} /></span><strong>Apoio ainda não configurado</strong><p>Apoio voluntário ao projeto AGIR LEGAL.</p><small>Quando o administrador ativar este módulo, a chave Pix aparecerá aqui de forma discreta.</small></Panel></div></AppShell>;
+  return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Apoio" title="Apoiar o projeto" description="Contribuição voluntária, de valor livre, para manter o NEXO LEGAL vivo e em melhoria constante." /><Panel className="support-panel"><span className="heading-icon"><HeartHandshake size={23} /></span><strong>Apoio ainda não configurado</strong><p>Apoio voluntário ao projeto NEXO LEGAL.</p><small>Quando o administrador ativar este módulo, a chave Pix aparecerá aqui de forma discreta.</small></Panel></div></AppShell>;
 }
 
 export function SuggestionPage() {
@@ -178,7 +178,7 @@ export function SuggestionPage() {
 }
 
 export function AboutPage() {
-  return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Sobre" title="Sobre o AGIR LEGAL" description="Guia operacional jurídico de consulta rápida, com funcionamento offline e fontes oficiais." />
-    <Panel className="about-panel"><h2>Finalidade</h2><p>O AGIR LEGAL foi criado para apoiar o policial militar de área durante o atendimento imediato da ocorrência, no local do fato. A proposta é oferecer consulta rápida sobre POP, base legal pública, cuidados de segurança, preservação de provas e encaminhamentos básicos para que a atuação comece, desenvolva-se e seja encerrada dentro da legalidade.</p><p>O conteúdo ajuda a organizar a primeira resposta operacional: proteger vítimas, estabilizar o ambiente, conter risco atual, identificar envolvidos e testemunhas, preservar vestígios e apresentar ou encaminhar pessoas, objetos e informações à autoridade competente quando cabível.</p><p>O app não substitui análise do caso concreto, comando, autoridade competente, Poder Judiciário, corregedoria, protocolos institucionais, normas internas ou a conferência da fonte oficial vigente antes de decisões sensíveis.</p></Panel><p className="signature">Desenvolvido para demonstração da interface pública.</p>
+  return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Sobre" title="Sobre o NEXO LEGAL" description="Guia operacional jurídico de consulta rápida, com funcionamento offline e fontes oficiais." />
+    <Panel className="about-panel"><h2>Finalidade</h2><p>O NEXO LEGAL foi criado para apoiar o policial militar de área durante o atendimento imediato da ocorrência, no local do fato. A proposta é oferecer consulta rápida sobre POP, base legal pública, cuidados de segurança, preservação de provas e encaminhamentos básicos para que a atuação comece, desenvolva-se e seja encerrada dentro da legalidade.</p><p>O conteúdo ajuda a organizar a primeira resposta operacional: proteger vítimas, estabilizar o ambiente, conter risco atual, identificar envolvidos e testemunhas, preservar vestígios e apresentar ou encaminhar pessoas, objetos e informações à autoridade competente quando cabível.</p><p>O app não substitui análise do caso concreto, comando, autoridade competente, Poder Judiciário, corregedoria, protocolos institucionais, normas internas ou a conferência da fonte oficial vigente antes de decisões sensíveis.</p></Panel><p className="signature">Desenvolvido para demonstração da interface pública.</p>
   </div></AppShell>;
 }

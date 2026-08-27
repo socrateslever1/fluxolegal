@@ -1,20 +1,20 @@
 /**
- * Design reference: compact legal-operational PWA. App chrome stays dark,
- * navigation is always reachable, and gold appears only as a functional cue.
+ * Design reference: NEXO LEGAL is a compact legal-operational PWA. Deep green
+ * is the field, ivory supports reading, and copper is reserved for action.
  */
 import { BookOpenText, Home, Menu, Star } from "lucide-react";
 import type { ReactNode } from "react";
 import { useLocation } from "wouter";
 
-const logoUrl = "/manus-storage/agir-legal-shield-mark_6aca9baa.png";
+export const BRAND_MARK_URL = "/manus-storage/nexo-legal-mark_20140c17.png";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`brand ${compact ? "brand--compact" : ""}`}>
-      <img src={logoUrl} alt="Símbolo do AGIR LEGAL" className="brand__mark" />
+      <img src={BRAND_MARK_URL} alt="Símbolo do NEXO LEGAL" className="brand__mark" />
       <div>
-        <div className="brand__wordmark">AGIR LEGAL</div>
-        {!compact && <p className="brand__tagline">Consulte, entenda. Aja dentro da lei.</p>}
+        <div className="brand__wordmark">NEXO LEGAL</div>
+        {!compact && <p className="brand__tagline">Conecte a ocorrência à decisão legal.</p>}
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ function BottomNav() {
 export function InstallHint() {
   return (
     <div className="install-hint" role="status">
-      <div><strong>Instalar aplicativo</strong><span>Toque para instalar o AGIR LEGAL no celular.</span></div>
+      <div><strong>Instalar aplicativo</strong><span>Toque para instalar o NEXO LEGAL no celular.</span></div>
       <button type="button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}>Instalar</button>
     </div>
   );
