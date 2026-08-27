@@ -1,12 +1,12 @@
 /**
- * Design reference: NEXO LEGAL is a compact legal-operational PWA. Deep green
- * is the field, ivory supports reading, and copper is reserved for action.
+ * Design reference: NEXO LEGAL is a compact legal-operational PWA. Slate navy,
+ * ivory and soft coral support friendly contrast and a field-uniform character.
  */
 import { BookOpenText, Home, Menu, Star } from "lucide-react";
 import type { ReactNode } from "react";
 import { useLocation } from "wouter";
 
-export const BRAND_MARK_URL = "/manus-storage/nexo-legal-mark_20140c17.png";
+export const BRAND_MARK_URL = "/manus-storage/nexo-legal-salute-mark_97514722.png";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (

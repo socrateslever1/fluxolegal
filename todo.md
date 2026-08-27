@@ -13,3 +13,12 @@
 - [x] Confirmar o nome e a direção cromática com o responsável pelo projeto.
 - [x] Atualizar nome, marca, cores e metadados na interface selecionada.
 - [x] Validar a aparência responsiva e registrar a nova versão.
+
+## Fortalecimento operacional
+
+- [x] Criar cópia de segurança independente do projeto antes das mudanças.
+- [x] Extrair a estrutura e os procedimentos relevantes do POP enviado.
+- [x] Definir a paleta azul-ardósia e o padrão visual inspirado na farda e no gorro fornecidos.
+- [x] Criar o novo ícone de silhueta em continência e aplicá-lo ao PWA.
+- [x] Vincular procedimentos POP às ocorrências e tornar a consulta jurídica mais explicativa.
+- [x] Validar a pesquisa, a navegação, o contraste e a versão publicada.

@@ -5,11 +5,11 @@
   "lang": "pt-BR",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#123B31",
-  "theme_color": "#123B31",
+  "background_color": "#202A42",
+  "theme_color": "#202A42",
   "icons": [
     {
-      "src": "/manus-storage/nexo-legal-mark_20140c17.png",
+      "src": "/manus-storage/nexo-legal-salute-mark_97514722.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

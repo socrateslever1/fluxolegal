@@ -1,11 +1,11 @@
 /**
- * Design reference: NEXO LEGAL is a compact legal-operational PWA. Ivory text,
- * deep green panels and copper action cues keep decisions legible in the field.
+ * NEXO LEGAL is a compact legal-operational PWA. Ivory text, navy-slate panels
+ * and coral decision cues keep POP and legal source consultation legible in the field.
  */
 import { AppShell, BRAND_MARK_URL } from "@/components/AppShell";
-import { cicomGroups, lawGroups, occurrences, type Occurrence } from "@/data/appData";
+import { cicomGroups, getLegalBriefsForOccurrence, getProceduresForOccurrence, lawGroups, legalBriefs, occurrences, popProcedures, type Occurrence } from "@/data/appData";
 import {
-  AlertTriangle, ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardList,
+  AlertTriangle, ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardCheck, ClipboardList,
   Clock3, Download, ExternalLink, FileText, HeartHandshake, Info, Landmark, MapPin, MessageSquare,
   Phone, Search, Send, Settings2, ShieldCheck, Star, Wifi,
 } from "lucide-react";
@@ -27,6 +27,7 @@ function useFavorites() {
 
 function PageHeading({ eyebrow, title, description, icon: Icon }: { eyebrow: string; title: string; description?: string; icon?: IconComponent }) {
   return <header className="page-heading page-enter">
+    <div className="page-heading__brand"><img src={BRAND_MARK_URL} alt="" /><span>NEXO LEGAL</span></div>
     <span className="eyebrow">{eyebrow}</span>
     <div className="page-heading__title">{Icon && <span className="heading-icon"><Icon size={20} /></span>}<h1>{title}</h1><img className="page-heading__seal" src={BRAND_MARK_URL} alt="" /></div>
     {description && <p>{description}</p>}
@@ -83,26 +84,24 @@ function AccordionBlock({ title, children }: { title: string; children: React.Re
   return <div className="accordion-block"><button onClick={() => setOpen((current) => !current)}><span>{title}</span><span>{open ? "Ocultar" : "Ver"} <ChevronRight className={open ? "rotate" : ""} size={16} /></span></button>{open && <div className="accordion-block__content">{children}</div>}</div>;
 }
 
-function LawLink({ title, source = "Código Penal" }: { title: string; source?: string }) {
-  return <a className="law-link" href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm" target="_blank" rel="noreferrer"><div><strong>{title}</strong><span>{source}</span></div><span>Ver letra da lei <ExternalLink size={14} /></span></a>;
+function LawLink({ title, source = "Código Penal", url = "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm" }: { title: string; source?: string; url?: string }) {
+  return <a className="law-link" href={url} target="_blank" rel="noreferrer"><div><strong>{title}</strong><span>{source}</span></div><span>Ver fonte oficial <ExternalLink size={14} /></span></a>;
 }
 
 function DetailContent({ occurrence, toggle, favorite }: { occurrence: Occurrence; toggle: (slug: string) => void; favorite: boolean }) {
+  const linkedProcedures = getProceduresForOccurrence(occurrence.slug);
+  const linkedBriefs = getLegalBriefsForOccurrence(occurrence.slug);
   return <div className="detail-page">
     <BackButton />
     <PageHeading eyebrow="Ocorrência" title={occurrence.title} icon={ShieldCheck} />
     <button className={`favorite-button ${favorite ? "is-favorite" : ""}`} onClick={() => toggle(occurrence.slug)}><Star size={17} fill={favorite ? "currentColor" : "none"} /> {favorite ? "Favoritado" : "Favoritar"}</button>
-    <Panel><h2>O que diz o POP sobre isso</h2><p className="panel-lead">Procedimento Operacional Padrão vinculado a esta ocorrência.</p>
-      <div className="pop-card"><span className="eyebrow">Preservação de local de crime</span><div className="pop-card__meta"><b>PROCESSO: 3.09.00</b><b>PROCEDIMENTO: 3.09.01 a 3.09.03</b><b>ESTABELECIDO EM: 20.02.2014</b></div>
-        <p><b>NOME DO PROCEDIMENTO:</b> Avaliação, preservação e término da preservação de local de crime</p><p><b>RESPONSÁVEL:</b> Equipe policial</p>
-        <p className="muted"><b>Onde encontrar:</b> POP Última Versão, p. 130–134 do arquivo.</p>
-      </div>
-      <AccordionBlock title="Sequência de ações citada no POP"><ol><li>Avalie riscos e priorize o socorro quando houver vítima viva.</li><li>Delimite o local e restrinja o acesso de pessoas não autorizadas.</li><li>Registre informações e preserve vestígios até a liberação competente.</li></ol></AccordionBlock>
-      <AccordionBlock title="Base legal citada no POP"><p>{occurrence.article}. Consulte a legislação oficial e a cadeia de custódia aplicável ao fato.</p></AccordionBlock>
-      <div className="caution"><AlertTriangle size={18} /><p><b>Atenção:</b> Não altere posição de cadáver, pessoa ou objeto. Não revistar bolsos da vítima nem permitir alteração de vestígios.</p></div>
+    <Panel><h2>Procedimentos POP vinculados</h2><p className="panel-lead">Referências do POP PMAM/PCAM, Volume I, 3ª edição (2022), selecionadas conforme o tipo de ocorrência.</p>
+      {linkedProcedures.length ? linkedProcedures.map((procedure) => <div className="pop-card" key={procedure.id}><span className="eyebrow">{procedure.process}</span><div className="pop-card__meta"><b>PROCESSO POP</b><b>{procedure.procedures.length} PROCEDIMENTO(S)</b><b>REFERÊNCIA 2022</b></div>
+        <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos relacionados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><AccordionBlock title="Limite de consulta"><p>{procedure.scope}</p></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>) : <div className="pop-card"><span className="eyebrow">Sem POP específico indexado</span><p>Esta ocorrência ainda não possui um procedimento POP diretamente vinculado na base local. Consulte a legislação e os protocolos institucionais vigentes.</p></div>}
+      <div className="caution"><AlertTriangle size={18} /><p><b>Atenção:</b> O aplicativo oferece referência de consulta. A fonte oficial, a capacitação e a cadeia de comando prevalecem em qualquer decisão sensível.</p></div>
     </Panel>
     <Panel><h2>Ação legal do policial na ocorrência</h2><div className="action-list">{legalActions.map(([title, copy], index) => <div className="action-item" key={title}><span>{index + 1}</span><div><strong>{title}</strong><p>{copy}</p></div></div>)}</div></Panel>
-    <Panel><h2>Base legal</h2><LawLink title={occurrence.article} /><LawLink title="Arts. 158-A a 158-F do CPP — Cadeia de custódia" source="Código de Processo Penal" /></Panel>
+    <Panel><h2>Base legal e explicação</h2><LawLink title={occurrence.article} />{linkedBriefs.length ? linkedBriefs.map((brief) => <div className="legal-brief" key={brief.id}><strong>{brief.title}</strong><span>{brief.law}</span><p>{brief.explanation}</p><AccordionBlock title="Ponto de atenção"><p>{brief.attention}</p></AccordionBlock><LawLink title={brief.law} source="Fonte oficial — Presidência da República" url={brief.url} /></div>) : <p className="panel-lead">A explicação detalhada será incluída quando houver vinculação editorial revisada. Use o link acima para conferência da norma oficial.</p>}</Panel>
     <Panel className="alert-panel"><span className="heading-icon"><AlertTriangle size={19} /></span><div><h2>{occurrence.title}: atenção operacional</h2><p>Não altere local, corpo, arma, cápsulas, sangue ou objetos, salvo para socorro ou segurança imediata.</p><a href="https://www.planalto.gov.br/" target="_blank" rel="noreferrer">Conferir fonte oficial <ExternalLink size={13} /></a><small>Última revisão: 21/08/2026</small></div></Panel>
   </div>;
 }
@@ -115,11 +114,26 @@ export function OccurrenceDetailPage({ params }: { params: { slug: string } }) {
 
 export function LawPage() {
   const [query, setQuery] = useState("");
-  const groups = lawGroups.map((group) => ({ ...group, items: group.items.filter((item) => `${group.title} ${item.title}`.toLocaleLowerCase("pt-BR").includes(query.toLocaleLowerCase("pt-BR"))) })).filter((group) => group.items.length > 0);
+  const normalizedQuery = query.toLocaleLowerCase("pt-BR");
+  const groups = lawGroups.map((group) => ({ ...group, items: group.items.filter((item) => `${group.title} ${item.title}`.toLocaleLowerCase("pt-BR").includes(normalizedQuery)) })).filter((group) => group.items.length > 0);
+  const explanations = legalBriefs.filter((brief) => `${brief.title} ${brief.law} ${brief.explanation} ${brief.terms.join(" ")}`.toLocaleLowerCase("pt-BR").includes(normalizedQuery));
   return <AppShell><div className="wide-page">
-    <div className="law-hero"><img src={legislationImage} alt="Textura editorial para legislação" /><PageHeading eyebrow="Fontes oficiais" title="Legislação" description="Leis cadastradas com link direto para conferência." /></div>
-    <SearchField value={query} onChange={setQuery} label="Pesquisar artigo de lei" placeholder="Pesquisar por artigo, lei ou assunto..." />
+    <div className="law-hero"><img src={legislationImage} alt="Textura editorial para legislação" /><PageHeading eyebrow="Fontes oficiais" title="Legislação" description="Pesquise leis, artigos e explicações de consulta com link direto para conferência." /></div>
+    <SearchField value={query} onChange={setQuery} label="Pesquisar legislação" placeholder="Pesquisar por lei, artigo, assunto ou explicação..." />
+    {explanations.length > 0 && <section className="law-explainers page-enter"><h2>Explicações de consulta</h2><p>Contexto breve para orientar a leitura da fonte oficial, sem substituir sua redação vigente.</p>{explanations.map((brief) => <Panel key={brief.id} className="legal-brief"><span className="eyebrow">{brief.law}</span><h2>{brief.title}</h2><p>{brief.explanation}</p><AccordionBlock title="Ponto de atenção"><p>{brief.attention}</p></AccordionBlock><LawLink title={brief.law} source="Fonte oficial — Presidência da República" url={brief.url} /></Panel>)}</section>}
     <div className="law-groups">{groups.map((group) => <Panel key={group.title} className="law-group"><div className="law-group__heading"><div><h2>{group.title}</h2><p className="law-group__meta">{group.meta}</p></div><span>{group.items.length} itens</span></div>{group.items.map((item) => <a className="law-link" href={item.url} target="_blank" rel="noreferrer" key={item.title}><div><strong>{item.title}</strong><span>{group.title} — {group.meta}</span></div><span>Ver letra da lei <ExternalLink size={14} /></span></a>)}</Panel>)}</div>
+  </div></AppShell>;
+}
+
+export function ProceduresPage() {
+  const [query, setQuery] = useState("");
+  const normalizedQuery = query.toLocaleLowerCase("pt-BR");
+  const procedures = popProcedures.filter((procedure) => `${procedure.process} ${procedure.procedures.join(" ")} ${procedure.purpose}`.toLocaleLowerCase("pt-BR").includes(normalizedQuery));
+  return <AppShell><div className="wide-page"><PageHeading eyebrow="POP PMAM/PCAM" title="Procedimentos" description="Processos vinculados às ocorrências para orientar a consulta do POP oficial." icon={ClipboardCheck} />
+    <SearchField value={query} onChange={setQuery} label="Pesquisar procedimento POP" placeholder="Pesquisar processo, procedimento ou situação..." />
+    <p className="result-count">{procedures.length} processos POP disponíveis nesta base local</p>
+    <div className="procedure-list page-enter">{procedures.map((procedure) => <Panel key={procedure.id} className="procedure-card"><span className="eyebrow">Processo POP</span><h2>{procedure.process}</h2><p>{procedure.purpose}</p><div className="procedure-tags">{procedure.procedures.map((name) => <span key={name}>{name}</span>)}</div><AccordionBlock title="Como esta referência deve ser usada"><p>{procedure.scope}</p></AccordionBlock><small>Fonte: {procedure.source}.</small></Panel>)}</div>
+    {procedures.length === 0 && <Panel className="empty-panel"><Search size={26} /><strong>Nenhum procedimento localizado</strong><p>Busque pelo nome do processo, por uma situação ou por uma palavra-chave.</p></Panel>}
   </div></AppShell>;
 }
 
@@ -141,7 +155,7 @@ export function FavoritesPage() {
 }
 
 const menuItems = [
-  ["Atualizações jurídicas", BellRing, "/atualizacoes", "0"], ["Todas as ocorrências", ClipboardList, "/ocorrencias"], ["Favoritos", Star, "/favoritos"], ["Sugestões", MessageSquare, "/sugestoes"], ["Sobre", Info, "/sobre"], ["Configurações", Settings2, "/configuracoes"],
+  ["Procedimentos POP", ClipboardCheck, "/procedimentos"], ["Atualizações jurídicas", BellRing, "/atualizacoes", "0"], ["Todas as ocorrências", ClipboardList, "/ocorrencias"], ["Favoritos", Star, "/favoritos"], ["Sugestões", MessageSquare, "/sugestoes"], ["Sobre", Info, "/sobre"], ["Configurações", Settings2, "/configuracoes"],
 ] as const;
 
 export function MenuPage() {

@@ -1,6 +1,6 @@
 /**
- * Design reference: compact legal-operational PWA with a navigation-first
- * information architecture and accessible dark high-contrast UI.
+ * NEXO LEGAL maintains a compact field-reference architecture with accessible
+ * navy-slate contrast and direct paths to POPs and official legal sources.
  */
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -10,7 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import {
   AboutPage, CicomPage, FavoritesPage, LawPage, MenuPage, OccurrenceDetailPage,
-  OccurrencesPage, SettingsPage, SuggestionPage, SupportPage, UpdatesPage,
+  OccurrencesPage, ProceduresPage, SettingsPage, SuggestionPage, SupportPage, UpdatesPage,
 } from "./pages/AppPages";
 
 function Router() {
@@ -19,6 +19,7 @@ function Router() {
     <Route path="/ocorrencias" component={OccurrencesPage} />
     <Route path="/ocorrencia/:slug" component={OccurrenceDetailPage} />
     <Route path="/legislacao" component={LawPage} />
+    <Route path="/procedimentos" component={ProceduresPage} />
     <Route path="/cicoms" component={CicomPage} />
     <Route path="/favoritos" component={FavoritesPage} />
     <Route path="/menu" component={MenuPage} />

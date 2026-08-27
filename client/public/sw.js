@@ -1,4 +1,4 @@
-const CACHE_NAME = "nexo-legal-static-v2";
+const CACHE_NAME = "nexo-legal-static-v3";
 const CORE_ASSETS = ["/", "/manifest.json"];
 
 self.addEventListener("install", (event) => {

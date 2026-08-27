@@ -1,6 +1,6 @@
 /**
- * Design reference: compact legal-operational PWA with sober navy surfaces,
- * functional gold accents, and fast, offline-friendly local interactions.
+ * NEXO LEGAL data model: compact field reference with slate-navy visual cues,
+ * safe POP metadata, source attribution and offline-friendly local search.
  */
 export type Occurrence = {
   slug: string;
@@ -8,6 +8,27 @@ export type Occurrence = {
   description: string;
   category: string;
   article: string;
+};
+
+export type PopProcedure = {
+  id: string;
+  process: string;
+  procedures: string[];
+  purpose: string;
+  scope: string;
+  linkedSlugs: string[];
+  source: string;
+};
+
+export type LegalBrief = {
+  id: string;
+  title: string;
+  law: string;
+  explanation: string;
+  attention: string;
+  terms: string[];
+  linkedSlugs: string[];
+  url: string;
 };
 
 export const occurrences: Occurrence[] = [
@@ -79,6 +100,175 @@ export const occurrences: Occurrence[] = [
   { slug: "preservacao-local", title: "Preservação de local de crime", description: "Local com vestígios, vítima, objetos ou ambiente que precisa permanecer preservado até liberação competente.", category: "Procedimento", article: "Art. 169 — CPP" },
   { slug: "leis-de-interesse-policial", title: "Leis de interesse policial", description: "Consulta rápida de normas públicas úteis à atuação policial, com foco em legalidade, direitos fundamentais, força e prova.", category: "Procedimento", article: "Fontes oficiais" },
 ];
+
+export const popProcedures: PopProcedure[] = [
+  {
+    id: "preservacao-local",
+    process: "Preservação de local de crime",
+    procedures: ["Avaliação do local", "Ação do policial para preservação", "Término da preservação"],
+    purpose: "Organiza a proteção do cenário e dos vestígios até a atuação da autoridade competente.",
+    scope: "O resumo no aplicativo destaca a necessidade de segurança, socorro, isolamento, registro e preservação, sem substituir o POP oficial.",
+    linkedSlugs: ["homicidio", "tentativa-de-homicidio", "encontro-de-cadaver", "lesao-corporal", "roubo", "preservacao-local", "acidente-de-transito"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "uso-algemas",
+    process: "Uso de algemas",
+    procedures: ["Preparação do EPI e das algemas", "Ato de algemação"],
+    purpose: "Relaciona a organização prévia do equipamento à necessidade de justificar e registrar seu emprego conforme o caso concreto.",
+    scope: "A interface resume critérios de legalidade, necessidade, proporcionalidade, segurança e registro; técnicas específicas permanecem no POP oficial e no treinamento institucional.",
+    linkedSlugs: ["uso-de-algemas", "prisao-em-flagrante", "resistencia", "desobediencia", "abordagem-e-busca"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "veiculo",
+    process: "Vistoria e identificação de veículo",
+    procedures: ["Vistoria e identificação de veículo"],
+    purpose: "Apoia o registro organizado da situação e a conferência de sinais de identificação antes do encaminhamento competente.",
+    scope: "O NEXO LEGAL apresenta a referência do procedimento, sem descrever meios de violação, evasão ou técnicas de abordagem.",
+    linkedSlugs: ["veiculo-adulterado", "receptacao", "roubo", "furto"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "transito",
+    process: "Acidente de trânsito",
+    procedures: ["Atendimento de ocorrência"],
+    purpose: "Orienta a prioridade de segurança do local, socorro, organização inicial de informações e preservação quando houver vestígios.",
+    scope: "O resumo não substitui as providências de trânsito, perícia, saúde e autoridade competente aplicáveis ao fato.",
+    linkedSlugs: ["acidente-de-transito", "fuga-local-acidente", "embriaguez-ao-volante", "direcao-perigosa", "racha"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "substancia-ilegal",
+    process: "Averiguação de substância ilegal",
+    procedures: ["Localização", "Identificação", "Apreensão"],
+    purpose: "Agrupa a referência para documentação, identificação e preservação do material relacionado à ocorrência.",
+    scope: "A apresentação é intencionalmente geral: a cadeia de custódia, os direitos envolvidos e a fonte oficial devem ser conferidos antes de qualquer decisão sensível.",
+    linkedSlugs: ["porte-de-droga", "trafico-de-drogas", "apreensao-de-celular"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "transporte-presos",
+    process: "Transporte e escolta de presos",
+    procedures: ["Verificação das condições", "Transporte do preso", "Embarque e desembarque", "Apresentação"],
+    purpose: "Reúne as referências de verificação e de apresentação aplicáveis à condução de pessoa custodiada.",
+    scope: "O NEXO LEGAL não exibe táticas de escolta; remete o usuário ao POP oficial, à norma vigente e à cadeia de comando.",
+    linkedSlugs: ["prisao-em-flagrante", "uso-de-algemas", "resistencia", "desobediencia"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "bloqueio-via",
+    process: "Bloqueio policial em via pública",
+    procedures: ["Planejamento", "Montagem", "Comando", "Segurança", "Seleção e vistoria de veículos", "Finalização"],
+    purpose: "Oferece um ponto de referência para ações em via que exijam planejamento, comunicação e limites institucionais claros.",
+    scope: "A tela mantém somente a finalidade e a estrutura do POP; execução específica depende do documento oficial, capacitação e comando competente.",
+    linkedSlugs: ["veiculo-adulterado", "embriaguez-ao-volante", "direcao-perigosa", "racha"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "vias-de-fato",
+    process: "Vias de fato",
+    procedures: ["Medidas de atendimento"],
+    purpose: "Apoia a organização da primeira resposta, identificação dos envolvidos e análise do contexto para o encaminhamento cabível.",
+    scope: "A qualificação jurídica depende dos elementos efetivamente apurados e da conferência da legislação vigente.",
+    linkedSlugs: ["vias-de-fato", "lesao-corporal", "ameaca", "perturbacao-do-sossego"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "perturbacao-sossego",
+    process: "Perturbação do sossego público",
+    procedures: ["Atendimento de ocorrência"],
+    purpose: "Reúne a referência de atendimento inicial para conflitos relacionados a ruído, perturbação e mediação no local.",
+    scope: "O procedimento deve ser aplicado junto da verificação do contexto, da norma local e de outras providências que o caso requeira.",
+    linkedSlugs: ["perturbacao-do-sossego", "dano", "vias-de-fato"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+  {
+    id: "violencia-domestica",
+    process: "Violência doméstica e familiar contra a mulher",
+    procedures: ["Atendimento de ocorrência"],
+    purpose: "Centraliza a referência inicial de atendimento com prioridade de proteção, avaliação de risco e registro adequado.",
+    scope: "O resumo reforça privacidade, proteção imediata e conferência da Lei Maria da Penha e dos protocolos institucionais vigentes.",
+    linkedSlugs: ["maria-da-penha", "violencia-psicologica", "violencia-sexual-domestica", "violencia-patrimonial", "descumprimento-de-medida", "ameaca"],
+    source: "POPs Integrados PMAM e PCAM, Volume I, 3ª edição, 2022",
+  },
+];
+
+export const legalBriefs: LegalBrief[] = [
+  {
+    id: "flagrante",
+    title: "Prisão em flagrante",
+    law: "Código de Processo Penal, arts. 301 a 310",
+    explanation: "A consulta ajuda a localizar as regras gerais do flagrante e dos encaminhamentos posteriores. A aplicação depende dos fatos observados, da documentação e da autoridade competente.",
+    attention: "Confirme a situação flagrancial, os direitos envolvidos e a redação oficial vigente antes de decidir.",
+    terms: ["prisão", "flagrante", "apresentação", "condução", "custodiado"],
+    linkedSlugs: ["prisao-em-flagrante", "resistencia", "desobediencia", "uso-de-algemas"],
+    url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm",
+  },
+  {
+    id: "busca-pessoal",
+    title: "Busca pessoal e domiciliar",
+    law: "Código de Processo Penal, arts. 240 e 244",
+    explanation: "A consulta reúne as normas que disciplinam busca e seus limites. A justificativa deve ser compatível com o contexto e registrada de forma clara.",
+    attention: "Domicílio e dados pessoais envolvem garantias constitucionais; confira a hipótese legal concreta e as regras institucionais aplicáveis.",
+    terms: ["busca", "abordagem", "domicílio", "revista", "fundada suspeita"],
+    linkedSlugs: ["abordagem-e-busca", "ingresso-em-domicilio", "apreensao-de-celular"],
+    url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm",
+  },
+  {
+    id: "cadeia-custodia",
+    title: "Preservação de local e cadeia de custódia",
+    law: "Código de Processo Penal, arts. 158-A a 158-F e art. 169",
+    explanation: "Os dispositivos organizam a preservação e o tratamento de vestígios. O objetivo é manter rastreabilidade desde o reconhecimento até a destinação adequada.",
+    attention: "Priorize socorro e segurança quando necessários; em seguida, preserve o que for pertinente sem substituir a atuação pericial competente.",
+    terms: ["local", "vestígio", "prova", "cadeia", "cadáver", "preservação"],
+    linkedSlugs: ["homicidio", "tentativa-de-homicidio", "encontro-de-cadaver", "lesao-corporal", "preservacao-local", "apreensao-de-celular"],
+    url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm",
+  },
+  {
+    id: "violencia-domestica",
+    title: "Violência doméstica e familiar",
+    law: "Lei Maria da Penha, Lei n.º 11.340/2006",
+    explanation: "A lei organiza proteção e providências relacionadas à violência doméstica e familiar contra a mulher. A consulta deve apoiar uma resposta protetiva e respeitosa.",
+    attention: "Avalie risco atual, evite exposição indevida e confirme medidas protetivas ou determinações existentes em fonte oficial.",
+    terms: ["mulher", "doméstica", "medida protetiva", "maria da penha", "ameaça"],
+    linkedSlugs: ["maria-da-penha", "violencia-psicologica", "violencia-sexual-domestica", "violencia-patrimonial", "descumprimento-de-medida", "ameaca"],
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm",
+  },
+  {
+    id: "drogas",
+    title: "Drogas: porte e tráfico",
+    law: "Lei de Drogas, Lei n.º 11.343/2006, arts. 28 e 33",
+    explanation: "A pesquisa permite diferenciar os artigos mais consultados da Lei de Drogas e chegar diretamente à fonte oficial para leitura integral.",
+    attention: "A classificação exige análise cuidadosa do conjunto de circunstâncias e das garantias legais; não presuma enquadramento apenas por um elemento isolado.",
+    terms: ["droga", "substância", "porte", "tráfico", "apreensão"],
+    linkedSlugs: ["porte-de-droga", "trafico-de-drogas"],
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm",
+  },
+  {
+    id: "forca",
+    title: "Uso de instrumentos de menor potencial ofensivo",
+    law: "Lei n.º 13.060/2014",
+    explanation: "A lei define princípios e diretrizes gerais sobre instrumentos de menor potencial ofensivo para agentes de segurança pública.",
+    attention: "Consulte a lei, o regulamento institucional, a capacitação exigida e a necessidade concreta; a tela não substitui treinamento técnico.",
+    terms: ["força", "instrumentos", "menor potencial", "segurança", "proporcionalidade"],
+    linkedSlugs: ["uso-da-forca", "uso-de-algemas", "resistencia"],
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm",
+  },
+  {
+    id: "crianca-adolescente",
+    title: "Proteção de criança e adolescente",
+    law: "Estatuto da Criança e do Adolescente, Lei n.º 8.069/1990",
+    explanation: "O ECA organiza garantias e medidas de proteção aplicáveis a crianças e adolescentes, orientando uma atuação centrada em proteção integral e privacidade.",
+    attention: "Evite exposição, preserve dados pessoais e acione a rede competente conforme as circunstâncias do caso.",
+    terms: ["criança", "adolescente", "menor", "eca", "proteção"],
+    linkedSlugs: ["crianca-e-adolescente", "violencia-sexual-digital", "estupro-de-vulneravel"],
+    url: "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm",
+  },
+];
+
+export const getProceduresForOccurrence = (slug: string) => popProcedures.filter((procedure) => procedure.linkedSlugs.includes(slug));
+export const getLegalBriefsForOccurrence = (slug: string) => legalBriefs.filter((brief) => brief.linkedSlugs.includes(slug));
 
 export type LawGroup = { title: string; meta: string; items: { title: string; url: string }[] };
 

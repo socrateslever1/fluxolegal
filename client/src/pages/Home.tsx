@@ -1,16 +1,16 @@
 /**
- * Design reference: NEXO LEGAL keeps a narrow operational silhouette, with
- * institutional green surfaces and copper cues for decision-oriented actions.
+ * NEXO LEGAL keeps a narrow operational silhouette, with uniform-inspired navy
+ * slate, readable ivory and coral cues reserved for decision-oriented actions.
  */
 import { AppShell, Brand } from "@/components/AppShell";
 import { occurrences } from "@/data/appData";
-import { BellRing, BookOpenText, Building2, Clock3, HeartHandshake, Search, Settings2, ShieldCheck, Star } from "lucide-react";
+import { BellRing, BookOpenText, Building2, ClipboardCheck, Clock3, HeartHandshake, Search, Settings2, ShieldCheck, Star } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 
 const shortcuts = [
   { title: "Atender ocorrência", description: "Localize o procedimento pela situação", icon: ShieldCheck, path: "/ocorrencias" },
-  { title: "Sustentar a base", description: "Contribua para manter a consulta", icon: HeartHandshake, path: "/apoiar" },
+  { title: "Procedimentos POP", description: "Consulte os POPs vinculados", icon: ClipboardCheck, path: "/procedimentos" },
   { title: "Pesquisar legislação", description: "Encontre norma, artigo ou tema", icon: BookOpenText, path: "/legislacao" },
   { title: "Acionar CICOM", description: "Contatos e localizações úteis", icon: Building2, path: "/cicoms" },
   { title: "Guardar referência", description: "Retome conteúdo salvo no aparelho", icon: Star, path: "/favoritos" },

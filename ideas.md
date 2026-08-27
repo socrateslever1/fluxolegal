@@ -14,12 +14,12 @@ PWA institucional de alto contraste, inspirada na sinalética operacional contem
 
 1. Priorizar a ocorrência e a decisão imediata em uma coluna de consulta de largura móvel.
 2. Manter títulos diretos, cartões densos e ícones lineares como instrumentos de leitura rápida.
-3. Usar verde profundo como ambiente de concentração, marfim para leitura e cobre exclusivamente para ação, seleção e alerta.
+3. Usar azul-ardósia inspirado na farda como ambiente de concentração, marfim para leitura e coral suave exclusivamente para ação, seleção e alerta.
 4. Deixar fontes, base legal e estado de atualização sempre próximos do conteúdo operacional.
 
 ### Filosofia de cor
 
-O **verde institucional** reduz a agressividade visual e comunica estabilidade, proteção e critério. O **marfim técnico** amplia a legibilidade e evita a fadiga de uma tela puramente branca. O **cobre operacional** não decora: assinala foco, ação, seleção e atenção.
+O **azul-ardósia de farda** comunica prontidão, método e estabilidade sem a dureza do preto. O **marfim técnico** amplia a legibilidade e evita fadiga visual. O **coral de decisão** ecoa o filete de acabamento do uniforme e não decora: assinala foco, ação, seleção e atenção. Um quadriculado marfim e azul, derivado da faixa do gorro, aparece apenas como textura de rastreabilidade e navegação.
 
 ### Paradigma de layout
 
@@ -27,7 +27,7 @@ Uma moldura vertical de aplicativo de campo permanece dominante em qualquer tela
 
 ### Elementos de assinatura
 
-O escudo de traço fino com três trajetórias convergentes é o selo da marca. Grades discretas, linhas de perímetro e marcas cobre de ação aparecem como linguagem de navegação e orientação, nunca como ornamento excessivo.
+A silhueta em continência é o selo da marca, com a faixa quadriculada do gorro como um detalhe de reconhecimento. Grades discretas, linhas de perímetro e marcas coral de ação aparecem como linguagem de navegação e orientação, nunca como ornamento excessivo.
 
 ### Filosofia de interação
 
@@ -53,17 +53,18 @@ Textos são diretos e procedimentais, sem promessas vagas. Exemplos: “Conecte 
 
 ### Wordmark e símbolo
 
-O wordmark NEXO LEGAL usa caixa alta compacta e cobre discreto. O símbolo é um escudo geométrico próprio com três vetores internos que convergem para um ponto central, associado à conexão entre fato, procedimento e norma.
+O wordmark NEXO LEGAL usa caixa alta compacta e marfim de alto contraste. O símbolo é uma silhueta abstrata em continência, com detalhe quadriculado no gorro e um filete coral discreto, associado à prontidão, à consulta responsável e à conexão entre fato, procedimento e norma.
 
 ### Cor de assinatura
 
-**Cobre de decisão — `#C7682C`**. Ele é reservado à ação, seleção, foco, alertas e pontos de identidade; grandes superfícies pertencem ao sistema verde institucional.
+**Coral de decisão — `#D47155`**. Ele é reservado à ação, seleção, foco, alertas e pontos de identidade; grandes superfícies pertencem ao sistema azul-ardósia `#202A42`.
 
 ## Decisões de estilo
 
 - A interface não deve extrapolar a moldura de uma ferramenta de campo em desktop.
-- O verde institucional e o marfim técnico dominam superfícies e leitura; o cobre só informa estado ou ação.
-- O símbolo NEXO atua como selo de navegação, estado e cabeçalho, em tamanho visível e com espaço ao redor.
+- O azul-ardósia de farda e o marfim técnico dominam superfícies e leitura; o coral só informa estado ou ação.
+- A silhueta de continência NEXO atua como selo de navegação, estado e cabeçalho, em tamanho visível e com espaço ao redor.
 - A marca exibida em qualquer tela é sempre **NEXO LEGAL**; nenhuma designação anterior, alternativa ou provisória permanece visível.
 - Listas de decisão preservam um fluxo vertical e sequencial, inclusive no desktop; o foco de campo prevalece sobre grades expansivas.
-- Ícones utilitários são neutros; o cobre de decisão `#C7682C` fica reservado para ação, seleção, foco, alerta e marca.
+- Ícones utilitários são neutros; o coral de decisão `#D47155` fica reservado para ação, seleção, foco, alerta e marca.
+- O padrão quadriculado do gorro integra o sistema como faixa técnica de baixa intensidade e nunca compete com conteúdo ou alertas.
