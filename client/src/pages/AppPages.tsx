@@ -29,8 +29,8 @@ function PageHeading({ eyebrow, title, description, icon: Icon }: { eyebrow: str
   return <header className="page-heading page-enter">
     <div className="page-heading__brand"><img src={BRAND_MARK_URL} alt="" /><span>NEXO LEGAL</span></div>
     <span className="eyebrow">{eyebrow}</span>
-    <div className="page-heading__title">{Icon && <span className="heading-icon"><Icon size={20} /></span>}<h1>{title}</h1><img className="page-heading__seal" src={BRAND_MARK_URL} alt="" /></div>
-    {description && <p>{description}</p>}
+    <div className="page-heading__copy"><div className="page-heading__title">{Icon && <span className="heading-icon"><Icon size={20} /></span>}<h1>{title}</h1></div>{description && <p>{description}</p>}</div>
+    <img className="page-heading__seal" src={BRAND_MARK_URL} alt="" />
   </header>;
 }
 
@@ -90,7 +90,7 @@ function DetailContent({ occurrence, toggle, favorite }: { occurrence: Occurrenc
     <button className={`favorite-button ${favorite ? "is-favorite" : ""}`} onClick={() => toggle(occurrence.slug)}><Star size={17} fill={favorite ? "currentColor" : "none"} /> {favorite ? "Favoritado" : "Favoritar"}</button>
     {linkedProcedures.length > 0 && <Panel><h2>Procedimentos POP vinculados</h2>
       {linkedProcedures.map((procedure) => <div className="pop-card" key={procedure.id}><span className="eyebrow">{procedure.process}</span><div className="pop-card__meta"><b>PROCESSO POP</b><b>{procedure.procedures.length} PROCEDIMENTO(S)</b><b>REFERÊNCIA 2022</b></div>
-        <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos relacionados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><AccordionBlock title="Limite de consulta"><p>{procedure.scope}</p></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>)}
+        <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos indexados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>)}
     </Panel>}
     <Panel><h2>Base legal</h2><LawLink title={occurrence.article} /></Panel>
     {linkedBriefs.length > 0 && <Panel><h2>Explicações jurídicas vinculadas</h2>{linkedBriefs.map((brief) => <div className="legal-brief" key={brief.id}><strong>{brief.title}</strong><span>{brief.law}</span><p>{brief.explanation}</p><AccordionBlock title="Ponto de atenção"><p>{brief.attention}</p></AccordionBlock><LawLink title={brief.law} source="Fonte oficial — Presidência da República" url={brief.url} /></div>)}</Panel>}
@@ -123,7 +123,7 @@ export function ProceduresPage() {
   return <AppShell><div className="wide-page"><PageHeading eyebrow="POP PMAM/PCAM" title="Procedimentos" description="Processos vinculados às ocorrências para orientar a consulta do POP oficial." icon={ClipboardCheck} />
     <SearchField value={query} onChange={setQuery} label="Pesquisar procedimento POP" placeholder="Pesquisar processo, procedimento ou situação..." />
     <p className="result-count">{procedures.length} processos POP disponíveis nesta base local</p>
-    <div className="procedure-list page-enter">{procedures.map((procedure) => <Panel key={procedure.id} className="procedure-card"><span className="eyebrow">Processo POP</span><h2>{procedure.process}</h2><p>{procedure.purpose}</p><div className="procedure-tags">{procedure.procedures.map((name) => <span key={name}>{name}</span>)}</div><AccordionBlock title="Como esta referência deve ser usada"><p>{procedure.scope}</p></AccordionBlock><small>Fonte: {procedure.source}.</small></Panel>)}</div>
+    <div className="procedure-list page-enter">{procedures.map((procedure) => <Panel key={procedure.id} className="procedure-card"><span className="eyebrow">Processo POP</span><h2>{procedure.process}</h2><p>{procedure.purpose}</p><div className="procedure-tags">{procedure.procedures.map((name) => <span key={name}>{name}</span>)}</div><small>Fonte: {procedure.source}.</small></Panel>)}</div>
     {procedures.length === 0 && <Panel className="empty-panel"><Search size={26} /><strong>Nenhum procedimento localizado</strong><p>Busque pelo nome do processo, por uma situação ou por uma palavra-chave.</p></Panel>}
   </div></AppShell>;
 }

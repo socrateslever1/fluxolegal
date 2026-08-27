@@ -37,3 +37,9 @@
 - [x] Localizar os avisos, explicações condicionais e estados genéricos usados nas fichas.
 - [x] Ocultar seções sem POP, explicação jurídica ou vínculo revisado para a ocorrência.
 - [x] Validar as fichas atualizadas e publicar a revisão.
+
+## Precisão visual e contextual
+
+- [x] Corrigir a posição do selo de continência nos cabeçalhos móveis.
+- [x] Revisar procedimentos, explicações e descrições ainda amplos ou sem vínculo específico.
+- [x] Validar as telas revisadas em viewport móvel e publicar a atualização.
