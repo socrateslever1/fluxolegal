@@ -1,11 +1,11 @@
 /**
- * NEXO LEGAL is a compact legal-operational PWA. Ivory text, navy-slate panels
- * and coral decision cues keep POP and legal source consultation legible in the field.
+ * NEXO LEGAL is a compact legal-operational PWA. Detail pages show only POPs
+ * and legal explanations actually linked to the selected occurrence.
  */
 import { AppShell, BRAND_MARK_URL } from "@/components/AppShell";
 import { cicomGroups, getLegalBriefsForOccurrence, getProceduresForOccurrence, lawGroups, legalBriefs, occurrences, popProcedures, type Occurrence } from "@/data/appData";
 import {
-  AlertTriangle, ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardCheck, ClipboardList,
+  ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardCheck, ClipboardList,
   Clock3, Download, ExternalLink, FileText, HeartHandshake, Info, Landmark, MapPin, MessageSquare,
   Phone, Search, Send, Settings2, ShieldCheck, Star, Wifi,
 } from "lucide-react";
@@ -72,13 +72,6 @@ export function OccurrencesPage() {
   </div></AppShell>;
 }
 
-const legalActions = [
-  ["Preserve vida e segurança", "Confirme se há risco ativo, agressor nas proximidades ou vítima com sinais vitais. Havendo vida, acione socorro imediatamente e limite movimentações ao indispensável."],
-  ["Isole o local", "Defina perímetro, impeça entrada de curiosos e preserve corpo, arma, cápsulas, sangue, pegadas, veículos, câmeras e objetos."],
-  ["Colete informações sem contaminar prova", "Identifique testemunhas e última pessoa que viu a vítima, anote horários e rotas, mas não recolha objetos nem altere a cena sem necessidade legal."],
-  ["Encaminhe o fluxo competente", "Acione perícia, autoridade competente e apoio necessário, mantendo registro de quem entrou no local até a liberação."],
-];
-
 function AccordionBlock({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return <div className="accordion-block"><button onClick={() => setOpen((current) => !current)}><span>{title}</span><span>{open ? "Ocultar" : "Ver"} <ChevronRight className={open ? "rotate" : ""} size={16} /></span></button>{open && <div className="accordion-block__content">{children}</div>}</div>;
@@ -95,14 +88,12 @@ function DetailContent({ occurrence, toggle, favorite }: { occurrence: Occurrenc
     <BackButton />
     <PageHeading eyebrow="Ocorrência" title={occurrence.title} icon={ShieldCheck} />
     <button className={`favorite-button ${favorite ? "is-favorite" : ""}`} onClick={() => toggle(occurrence.slug)}><Star size={17} fill={favorite ? "currentColor" : "none"} /> {favorite ? "Favoritado" : "Favoritar"}</button>
-    <Panel><h2>Procedimentos POP vinculados</h2><p className="panel-lead">Referências do POP PMAM/PCAM, Volume I, 3ª edição (2022), selecionadas conforme o tipo de ocorrência.</p>
-      {linkedProcedures.length ? linkedProcedures.map((procedure) => <div className="pop-card" key={procedure.id}><span className="eyebrow">{procedure.process}</span><div className="pop-card__meta"><b>PROCESSO POP</b><b>{procedure.procedures.length} PROCEDIMENTO(S)</b><b>REFERÊNCIA 2022</b></div>
-        <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos relacionados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><AccordionBlock title="Limite de consulta"><p>{procedure.scope}</p></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>) : <div className="pop-card"><span className="eyebrow">Sem POP específico indexado</span><p>Esta ocorrência ainda não possui um procedimento POP diretamente vinculado na base local. Consulte a legislação e os protocolos institucionais vigentes.</p></div>}
-      <div className="caution"><AlertTriangle size={18} /><p><b>Atenção:</b> O aplicativo oferece referência de consulta. A fonte oficial, a capacitação e a cadeia de comando prevalecem em qualquer decisão sensível.</p></div>
-    </Panel>
-    <Panel><h2>Ação legal do policial na ocorrência</h2><div className="action-list">{legalActions.map(([title, copy], index) => <div className="action-item" key={title}><span>{index + 1}</span><div><strong>{title}</strong><p>{copy}</p></div></div>)}</div></Panel>
-    <Panel><h2>Base legal e explicação</h2><LawLink title={occurrence.article} />{linkedBriefs.length ? linkedBriefs.map((brief) => <div className="legal-brief" key={brief.id}><strong>{brief.title}</strong><span>{brief.law}</span><p>{brief.explanation}</p><AccordionBlock title="Ponto de atenção"><p>{brief.attention}</p></AccordionBlock><LawLink title={brief.law} source="Fonte oficial — Presidência da República" url={brief.url} /></div>) : <p className="panel-lead">A explicação detalhada será incluída quando houver vinculação editorial revisada. Use o link acima para conferência da norma oficial.</p>}</Panel>
-    <Panel className="alert-panel"><span className="heading-icon"><AlertTriangle size={19} /></span><div><h2>{occurrence.title}: atenção operacional</h2><p>Não altere local, corpo, arma, cápsulas, sangue ou objetos, salvo para socorro ou segurança imediata.</p><a href="https://www.planalto.gov.br/" target="_blank" rel="noreferrer">Conferir fonte oficial <ExternalLink size={13} /></a><small>Última revisão: 21/08/2026</small></div></Panel>
+    {linkedProcedures.length > 0 && <Panel><h2>Procedimentos POP vinculados</h2>
+      {linkedProcedures.map((procedure) => <div className="pop-card" key={procedure.id}><span className="eyebrow">{procedure.process}</span><div className="pop-card__meta"><b>PROCESSO POP</b><b>{procedure.procedures.length} PROCEDIMENTO(S)</b><b>REFERÊNCIA 2022</b></div>
+        <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos relacionados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><AccordionBlock title="Limite de consulta"><p>{procedure.scope}</p></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>)}
+    </Panel>}
+    <Panel><h2>Base legal</h2><LawLink title={occurrence.article} /></Panel>
+    {linkedBriefs.length > 0 && <Panel><h2>Explicações jurídicas vinculadas</h2>{linkedBriefs.map((brief) => <div className="legal-brief" key={brief.id}><strong>{brief.title}</strong><span>{brief.law}</span><p>{brief.explanation}</p><AccordionBlock title="Ponto de atenção"><p>{brief.attention}</p></AccordionBlock><LawLink title={brief.law} source="Fonte oficial — Presidência da República" url={brief.url} /></div>)}</Panel>}
   </div>;
 }
 

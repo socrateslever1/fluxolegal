@@ -22,3 +22,18 @@
 - [x] Criar o novo ícone de silhueta em continência e aplicá-lo ao PWA.
 - [x] Vincular procedimentos POP às ocorrências e tornar a consulta jurídica mais explicativa.
 - [x] Validar a pesquisa, a navegação, o contraste e a versão publicada.
+
+## Consulta interna unificada
+
+- [x] Tratar o repositório DireitoHD como base canônica de acervo e mecanismo de busca na integração.
+- [x] Verificar políticas de incorporação, cabeçalhos e formas de consulta do DireitoHD e da legislação oficial.
+- [x] Mapear o acervo e o mecanismo de pesquisa do repositório DireitoHD selecionado.
+- [x] Definir o desenho de leitura interna, índice de busca e exibição de atribuição de fonte.
+- [x] Definir cache, atualização, auditoria de versão e revisão editorial da base jurídica.
+- [x] Entregar a recomendação de implementação e os pré-requisitos técnicos.
+
+## Conteúdo específico por ocorrência
+
+- [x] Localizar os avisos, explicações condicionais e estados genéricos usados nas fichas.
+- [x] Ocultar seções sem POP, explicação jurídica ou vínculo revisado para a ocorrência.
+- [x] Validar as fichas atualizadas e publicar a revisão.
