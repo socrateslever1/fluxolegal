@@ -2,7 +2,7 @@
  * NEXO LEGAL is a compact legal-operational PWA. Detail pages show only POPs
  * and legal explanations actually linked to the selected occurrence.
  */
-import { AppShell, BRAND_MARK_URL } from "@/components/AppShell";
+import { AppShell, BRAND_MARK_URL, InstallHint } from "@/components/AppShell";
 import { cicomGroups, getLegalBriefsForOccurrence, getProceduresForOccurrence, lawGroups, legalBriefs, occurrences, popProcedures, type Occurrence } from "@/data/appData";
 import {
   ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardCheck, ClipboardList,
@@ -131,7 +131,7 @@ export function ProceduresPage() {
 export function CicomPage() {
   const [query, setQuery] = useState("");
   const groups = cicomGroups.map((group) => ({ ...group, units: group.units.filter((unit) => `${group.name} ${unit.unit} ${unit.area} ${unit.phone}`.toLocaleLowerCase("pt-BR").includes(query.toLocaleLowerCase("pt-BR"))) })).filter((group) => group.units.length > 0);
-  return <AppShell installHint><div className="wide-page cicom-page"><BackButton /><PageHeading eyebrow="Consulta operacional" title="CICOMs" icon={Building2} /><SearchField value={query} onChange={setQuery} label="Pesquisar CICOM" placeholder="Pesquisar por CICOM, CPA, bairro ou telefone..." />
+  return <AppShell><div className="wide-page cicom-page"><BackButton /><PageHeading eyebrow="Consulta operacional" title="CICOMs" icon={Building2} /><SearchField value={query} onChange={setQuery} label="Pesquisar CICOM" placeholder="Pesquisar por CICOM, CPA, bairro ou telefone..." />
     <div className="cicom-groups">{groups.map((group) => <Panel key={group.name} className="cicom-group"><div className="cicom-group__heading"><h2>{group.name}</h2><span>{group.units.length}</span></div>{group.units.map((unit) => <article className="cicom-unit" key={unit.unit}><strong>{unit.unit}</strong><p>{unit.area}</p><div><a href={`https://wa.me/5592${unit.phone.replace(/\D/g, "")}`} target="_blank" rel="noreferrer"><Phone size={15} /> {unit.phone}</a><a href={unit.map} target="_blank" rel="noreferrer"><MapPin size={15} /> Localização <ExternalLink size={13} /></a></div></article>)}</Panel>)}</div>
   </div></AppShell>;
 }
@@ -151,7 +151,7 @@ const menuItems = [
 
 export function MenuPage() {
   const [, setLocation] = useLocation();
-  return <AppShell installHint><div className="wide-page narrow-page"><PageHeading eyebrow="Menu" title="NEXO LEGAL" description="Base jurídica disponível offline." />
+  return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Menu" title="NEXO LEGAL" description="Base jurídica disponível offline." />
     <Panel className="menu-panel">{menuItems.map(([label, Icon, path, end]) => <button key={label} className="menu-row" onClick={() => setLocation(path)}><Icon size={19} /><span>{label}</span>{end ? <em>{end}</em> : <ChevronRight size={18} />}</button>)}<button className="menu-row" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={19} /><span>Instalar NEXO LEGAL</span><ChevronRight size={18} /></button></Panel>
     <Panel className="status-panel"><h2>Status da base</h2><p><Wifi size={16} /> Online</p><span>Última sincronização: 27/08/2026, 02:45:43</span><small>O painel administrativo fica acessível somente por /admin.</small></Panel>
   </div></AppShell>;
@@ -165,7 +165,7 @@ export function SettingsPage() {
   const [minorOffense, setMinorOffense] = useState(() => (localStorage.getItem("nexo-legal-minor-offense") ?? localStorage.getItem("agir-legal-minor-offense")) === "true");
   useEffect(() => localStorage.setItem("nexo-legal-minor-offense", String(minorOffense)), [minorOffense]);
   return <AppShell><div className="wide-page narrow-page"><PageHeading eyebrow="Preferências" title="Configurações" description="Preferências locais do aparelho." />
-    <Panel><h2>Aplicativo</h2><button className="gold-button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}><Download size={17} /> Instalar NEXO LEGAL</button></Panel>
+    <InstallHint persistent />
     <Panel><h2>Preferências locais</h2><label className="setting-toggle"><span><b>Identificar menor potencial ofensivo</b><small>Quando ativado, mostra a indicação de menor potencial ofensivo e libera o botão GERAR TCO nas ocorrências compatíveis.</small></span><input type="checkbox" checked={minorOffense} onChange={(event) => setMinorOffense(event.target.checked)} /><i aria-hidden="true" /></label></Panel>
   </div></AppShell>;
 }

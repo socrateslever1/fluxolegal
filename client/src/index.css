@@ -40,3 +40,7 @@
    overlays a page title or its contextual description on narrow screens. */
 .page-heading{display:grid;grid-template-columns:minmax(0,1fr) 54px;column-gap:12px;align-items:start}.page-heading__brand,.page-heading>.eyebrow{grid-column:1/-1}.page-heading__copy{grid-column:1;min-width:0}.page-heading__title{padding-right:0}.page-heading__seal{position:static;grid-column:2;grid-row:3;width:52px;height:52px;margin-top:5px;filter:drop-shadow(0 5px 10px rgb(0 0 0 / .35))}.page-heading__copy p{max-width:none}
 @media(max-width:440px){.page-heading{grid-template-columns:minmax(0,1fr) 47px;column-gap:9px}.page-heading__seal{width:47px;height:47px;margin-top:3px}.page-heading__copy p{font-size:14px;line-height:1.4}}
+
+/* Installation banner: short-lived at app startup, deliberately in-flow and
+   always available in Settings, where it cannot obstruct navigation controls. */
+.install-hint--settings{position:static;width:100%;margin:0 0 14px;animation:none;box-shadow:var(--shadow)}

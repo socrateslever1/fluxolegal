@@ -1,12 +1,13 @@
 /**
- * Design reference: NEXO LEGAL is a compact legal-operational PWA. Slate navy,
- * ivory and soft coral support friendly contrast and a field-uniform character.
+ * NEXO LEGAL is a compact legal-operational PWA. Its installation prompt is
+ * temporary at application start and persistent only in the settings route.
  */
 import { BookOpenText, Home, Menu, Star } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useLocation } from "wouter";
 
 export const BRAND_MARK_URL = "/manus-storage/nexo-legal-salute-mark_97514722.png";
+const INSTALL_HINT_UNTIL_KEY = "nexo-legal-install-hint-until";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
@@ -40,20 +41,48 @@ function BottomNav() {
   );
 }
 
-export function InstallHint() {
+export function InstallHint({ persistent = false }: { persistent?: boolean }) {
   return (
-    <div className="install-hint" role="status">
+    <section className={`install-hint ${persistent ? "install-hint--settings" : ""}`} role={persistent ? "region" : "status"} aria-label="Instalar aplicativo">
       <div><strong>Instalar aplicativo</strong><span>Toque para instalar o NEXO LEGAL no celular.</span></div>
       <button type="button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}>Instalar</button>
-    </div>
+    </section>
   );
 }
 
-export function AppShell({ children, installHint = false }: { children: ReactNode; installHint?: boolean }) {
+function useTemporaryInstallHint() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const now = Date.now();
+    let until = 0;
+    try {
+      until = Number(window.sessionStorage.getItem(INSTALL_HINT_UNTIL_KEY));
+      if (!Number.isFinite(until) || until <= now) {
+        until = now + 10_000;
+        window.sessionStorage.setItem(INSTALL_HINT_UNTIL_KEY, String(until));
+      }
+    } catch {
+      until = now + 10_000;
+    }
+
+    const remaining = until - now;
+    if (remaining <= 0) return;
+    setVisible(true);
+    const timeout = window.setTimeout(() => setVisible(false), remaining);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  return visible;
+}
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const [location] = useLocation();
+  const showInstallHint = useTemporaryInstallHint();
   return (
     <div className="app-shell">
       <main className="app-shell__content">{children}</main>
-      {installHint && <InstallHint />}
+      {showInstallHint && location !== "/configuracoes" && <InstallHint />}
       <BottomNav />
     </div>
   );

@@ -26,7 +26,7 @@ export default function Home() {
     ? occurrences.filter((item) => `${item.title} ${item.description} ${item.category}`.toLocaleLowerCase("pt-BR").includes(query.toLocaleLowerCase("pt-BR"))).slice(0, 4)
     : [];
 
-  return <AppShell installHint>
+  return <AppShell>
     <div className="home-main page-enter">
       <header className="home-header"><Brand /><span className="updated-at">Atualizado em 26/08/2026</span></header>
       <div className="home-search-wrap">

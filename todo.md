@@ -43,3 +43,9 @@
 - [x] Corrigir a posição do selo de continência nos cabeçalhos móveis.
 - [x] Revisar procedimentos, explicações e descrições ainda amplos ou sem vínculo específico.
 - [x] Validar as telas revisadas em viewport móvel e publicar a atualização.
+
+## Aviso de instalação
+
+- [x] Localizar os pontos de exibição do aviso de instalação.
+- [x] Exibir o aviso global por 10 segundos após abertura e manter a ação fixa em Configurações.
+- [x] Validar o desaparecimento automático e publicar a atualização.
