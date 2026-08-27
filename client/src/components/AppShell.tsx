@@ -1,6 +1,6 @@
 /**
- * NEXO LEGAL is a compact legal-operational PWA. Its installation prompt is
- * temporary at application start and persistent only in the settings route.
+ * NEXO LEGAL is a compact legal-operational PWA. Its startup install prompt is
+ * dismissible for the device and the permanent action remains in Settings.
  */
 import { BookOpenText, Home, Menu, Star } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
@@ -8,6 +8,7 @@ import { useLocation } from "wouter";
 
 export const BRAND_MARK_URL = "/manus-storage/nexo-legal-salute-mark_97514722.png";
 const INSTALL_HINT_UNTIL_KEY = "nexo-legal-install-hint-until";
+const INSTALL_HINT_DISMISSED_KEY = "nexo-legal-install-hint-dismissed";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
@@ -41,11 +42,12 @@ function BottomNav() {
   );
 }
 
-export function InstallHint({ persistent = false }: { persistent?: boolean }) {
+export function InstallHint({ persistent = false, onClose }: { persistent?: boolean; onClose?: () => void }) {
   return (
     <section className={`install-hint ${persistent ? "install-hint--settings" : ""}`} role={persistent ? "region" : "status"} aria-label="Instalar aplicativo">
       <div><strong>Instalar aplicativo</strong><span>Toque para instalar o NEXO LEGAL no celular.</span></div>
       <button type="button" onClick={() => window.alert("Use o menu do navegador para adicionar este aplicativo à tela inicial.")}>Instalar</button>
+      {onClose && <button className="install-hint__close" type="button" aria-label="Fechar e não mostrar novamente" title="Fechar e não mostrar novamente" onClick={onClose}>×</button>}
     </section>
   );
 }
@@ -57,6 +59,7 @@ function useTemporaryInstallHint() {
     const now = Date.now();
     let until = 0;
     try {
+      if (window.localStorage.getItem(INSTALL_HINT_DISMISSED_KEY) === "true") return;
       until = Number(window.sessionStorage.getItem(INSTALL_HINT_UNTIL_KEY));
       if (!Number.isFinite(until) || until <= now) {
         until = now + 10_000;
@@ -73,16 +76,26 @@ function useTemporaryInstallHint() {
     return () => window.clearTimeout(timeout);
   }, []);
 
-  return visible;
+  const dismissPermanently = () => {
+    try {
+      window.localStorage.setItem(INSTALL_HINT_DISMISSED_KEY, "true");
+      window.sessionStorage.removeItem(INSTALL_HINT_UNTIL_KEY);
+    } catch {
+      // The banner still closes in browsers that deny web storage access.
+    }
+    setVisible(false);
+  };
+
+  return { visible, dismissPermanently };
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [location] = useLocation();
-  const showInstallHint = useTemporaryInstallHint();
+  const { visible: showInstallHint, dismissPermanently } = useTemporaryInstallHint();
   return (
     <div className="app-shell">
       <main className="app-shell__content">{children}</main>
-      {showInstallHint && location !== "/configuracoes" && <InstallHint />}
+      {showInstallHint && location !== "/configuracoes" && <InstallHint onClose={dismissPermanently} />}
       <BottomNav />
     </div>
   );

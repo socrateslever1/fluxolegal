@@ -68,3 +68,9 @@ O wordmark NEXO LEGAL usa caixa alta compacta e marfim de alto contraste. O sím
 - Listas de decisão preservam um fluxo vertical e sequencial, inclusive no desktop; o foco de campo prevalece sobre grades expansivas.
 - Ícones utilitários são neutros; o coral de decisão `#D47155` fica reservado para ação, seleção, foco, alerta e marca.
 - O padrão quadriculado do gorro integra o sistema como faixa técnica de baixa intensidade e nunca compete com conteúdo ou alertas.
+
+## Nova composição: painel de decisão imediata
+
+A tela inicial deixa de ser uma grade uniforme de atalhos e passa a ter uma **ação primária dominante**: localizar uma ocorrência ou iniciar uma consulta. A busca fica no primeiro bloco visual; logo abaixo, uma faixa de triagem permite iniciar por áreas de campo. Procedimentos POP, legislação e CICOM tornam-se ações secundárias em uma lista de avanço, cada uma com descrição curta, indicador de destino e área de toque ampla.
+
+As referências pessoais — favoritos, atualizações e configurações — ficam em uma bandeja de continuidade abaixo das ações de campo. A composição mantém uma coluna móvel, mas cria ritmo de urgência: primeiro decidir, depois consultar, então retomar. Não haverá grandes blocos decorativos, gradientes novos ou caixas genéricas; os perímetros, a faixa quadriculada e o coral de decisão indicarão prioridade e progressão.

@@ -49,3 +49,10 @@
 - [x] Localizar os pontos de exibição do aviso de instalação.
 - [x] Exibir o aviso global por 10 segundos após abertura e manter a ação fixa em Configurações.
 - [x] Validar o desaparecimento automático e publicar a atualização.
+
+## Dinâmica orientada por ação
+
+- [x] Mapear o aviso de instalação e os pontos de entrada da navegação atual.
+- [x] Definir a nova composição de ações rápidas, busca e consulta em uma única tela operacional.
+- [x] Adicionar fechamento permanente ao aviso e implementar o novo layout.
+- [x] Validar a experiência móvel e publicar a atualização.
