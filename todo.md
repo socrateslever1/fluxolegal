@@ -56,3 +56,10 @@
 - [x] Definir a nova composição de ações rápidas, busca e consulta em uma única tela operacional.
 - [x] Adicionar fechamento permanente ao aviso e implementar o novo layout.
 - [x] Validar a experiência móvel e publicar a atualização.
+
+## Modelo de BUO
+
+- [x] Mapear os dados já disponíveis nas fichas e os campos comuns do modelo de BUO.
+- [x] Definir campos situacionais por natureza de ocorrência, sem dados preenchidos.
+- [x] Incluir o formulário de BUO em cada ficha com salvamento apenas local.
+- [x] Validar o preenchimento em celular e publicar a atualização.

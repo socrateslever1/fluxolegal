@@ -10,6 +10,13 @@ export type Occurrence = {
   article: string;
 };
 
+export type BuoField = {
+  id: string;
+  label: string;
+  hint: string;
+  multiline?: boolean;
+};
+
 export type PopProcedure = {
   id: string;
   process: string;
@@ -98,6 +105,93 @@ export const occurrences: Occurrence[] = [
   { slug: "apreensao-de-celular", title: "Apreensão de celular", description: "Apreensão de aparelho ou mídia digital relacionada ao fato exige base legal, cadeia de custódia e cautela com dados.", category: "Procedimento", article: "Arts. 158-A a 158-F — CPP" },
   { slug: "preservacao-local", title: "Preservação de local de crime", description: "Local com vestígios, vítima, objetos ou ambiente que precisa permanecer preservado até liberação competente.", category: "Procedimento", article: "Art. 169 — CPP" },
   { slug: "leis-de-interesse-policial", title: "Leis de interesse policial", description: "Consulta rápida de normas públicas úteis à atuação policial, com foco em legalidade, direitos fundamentais, força e prova.", category: "Procedimento", article: "Fontes oficiais" },
+];
+
+const commonBuoFields: BuoField[] = [
+  { id: "dataHora", label: "Data e horário do atendimento", hint: "Informe a data e o horário registrados." },
+  { id: "local", label: "Local do atendimento", hint: "Endereço, bairro e ponto de referência." },
+  { id: "equipe", label: "Equipe / viatura", hint: "Identificação da equipe que realizou o atendimento." },
+  { id: "acionamento", label: "Origem do acionamento", hint: "CICOM, solicitante, patrulhamento ou outro canal." },
+];
+
+const categoryBuoFields: Record<string, BuoField[]> = {
+  Vida: [
+    { id: "condicao", label: "Condição encontrada", hint: "Descreva a condição da vítima ou da pessoa atendida." },
+    { id: "vestigios", label: "Vestígios ou elementos observados", hint: "Registre somente os elementos relacionados ao fato." },
+    { id: "acionamentos", label: "Apoios acionados", hint: "Informe os serviços e órgãos acionados." },
+  ],
+  Proteção: [
+    { id: "pessoaAssistida", label: "Pessoa assistida", hint: "Identifique a condição de vulnerabilidade informada." },
+    { id: "risco", label: "Risco identificado", hint: "Descreva o risco concreto relatado ou observado." },
+    { id: "rede", label: "Rede ou serviço acionado", hint: "Informe saúde, assistência, conselho ou outro apoio acionado." },
+  ],
+  Liberdade: [
+    { id: "pessoaEnvolvida", label: "Pessoa envolvida", hint: "Identifique vítimas, comunicantes e demais envolvidos." },
+    { id: "restricao", label: "Fato relativo à restrição de liberdade", hint: "Descreva a forma de restrição relatada ou observada." },
+    { id: "medidas", label: "Medidas registradas", hint: "Informe as medidas efetivamente adotadas no atendimento." },
+  ],
+  Mulher: [
+    { id: "vinculo", label: "Vínculo entre as pessoas envolvidas", hint: "Informe o vínculo relatado entre vítima e autor indicado." },
+    { id: "medidaProtetiva", label: "Medida protetiva informada", hint: "Registre somente a informação apresentada no atendimento." },
+    { id: "protecao", label: "Proteção e rede acionada", hint: "Informe medidas e serviços acionados para a situação registrada." },
+  ],
+  Patrimônio: [
+    { id: "bem", label: "Bem ou valor envolvido", hint: "Descreva o bem, identificação e valor informado, se houver." },
+    { id: "posse", label: "Situação relatada da posse", hint: "Registre como o bem estava relacionado às pessoas envolvidas." },
+    { id: "elementos", label: "Elementos disponíveis", hint: "Informe imagens, documentos, comunicações ou testemunhas mencionadas." },
+  ],
+  Sexual: [
+    { id: "atendimentoProtecao", label: "Proteção e atendimento informado", hint: "Registre acolhimento, saúde ou rede de proteção acionados." },
+    { id: "vestigioSexual", label: "Vestígios ou objetos mencionados", hint: "Descreva somente o que foi relatado ou observado no local." },
+    { id: "privacidade", label: "Registro de privacidade", hint: "Indique os cuidados adotados para reduzir exposição indevida." },
+  ],
+  Digital: [
+    { id: "dispositivo", label: "Dispositivo, conta ou plataforma", hint: "Identifique o meio digital citado no relato." },
+    { id: "conteudo", label: "Material ou dado mencionado", hint: "Descreva o conteúdo informado sem reproduzir dados sensíveis." },
+    { id: "origemRelato", label: "Origem do relato", hint: "Registre como a informação chegou ao atendimento." },
+  ],
+  Trânsito: [
+    { id: "veiculos", label: "Veículo(s) envolvido(s)", hint: "Placa, tipo e características informadas ou observadas." },
+    { id: "condicoesLocal", label: "Condições do local", hint: "Registre vias, sinalização, risco e condição relevante." },
+    { id: "vitimasApoio", label: "Vítimas e apoios acionados", hint: "Informe vítimas, socorro e órgãos envolvidos no atendimento." },
+  ],
+  Contravenções: [
+    { id: "fatoRelatado", label: "Fato relatado", hint: "Registre o comportamento ou situação comunicada." },
+    { id: "pessoasIdentificadas", label: "Pessoas identificadas", hint: "Informe os envolvidos que foram identificados." },
+    { id: "elementosContravencao", label: "Elementos mencionados", hint: "Registre objetos, local ou relatos relacionados ao fato." },
+  ],
+  Administração: [
+    { id: "atoOrdem", label: "Ordem ou ato envolvido", hint: "Descreva a ordem legal ou ato de serviço informado." },
+    { id: "condutaRelatada", label: "Conduta relatada", hint: "Registre a conduta observada ou comunicada." },
+    { id: "registros", label: "Registros disponíveis", hint: "Informe comunicações, imagens ou testemunhas referidas." },
+  ],
+  Drogas: [
+    { id: "material", label: "Material informado", hint: "Descreva o material e a apresentação mencionada no atendimento." },
+    { id: "localizacao", label: "Localização ou posse narrada", hint: "Registre o local ou vínculo relatado com o material." },
+    { id: "testemunhas", label: "Testemunhas ou registros", hint: "Informe pessoas ou registros citados no atendimento." },
+  ],
+  Procedimento: [
+    { id: "circunstancia", label: "Circunstância que motivou a medida", hint: "Descreva o fato ou condição anotada no atendimento." },
+    { id: "envolvidosObjetos", label: "Pessoas, objetos ou local relacionados", hint: "Registre somente elementos efetivamente vinculados ao caso." },
+    { id: "registroAcao", label: "Ação registrada", hint: "Informe a providência efetivamente lançada no registro." },
+  ],
+  Armas: [
+    { id: "item", label: "Item mencionado", hint: "Descreva arma, acessório, munição ou objeto indicado." },
+    { id: "condicaoItem", label: "Localização e condição do item", hint: "Registre como e onde o item foi informado ou observado." },
+    { id: "documentacao", label: "Documentação ou identificação", hint: "Informe documento ou identificação apresentada, se houver." },
+  ],
+};
+
+const finalBuoField: BuoField = { id: "narrativa", label: "Narrativa inicial dos fatos", hint: "Registre os fatos relevantes desta ocorrência em sequência temporal.", multiline: true };
+
+export const getBuoFieldsForOccurrence = (occurrence: Occurrence): BuoField[] => [
+  ...commonBuoFields,
+  ...(categoryBuoFields[occurrence.category] ?? [
+    { id: "envolvidos", label: "Pessoas envolvidas", hint: "Informe as pessoas relacionadas ao fato." },
+    { id: "fato", label: "Fato relatado", hint: "Descreva a situação relatada ou observada." },
+    { id: "elementosGerais", label: "Elementos mencionados", hint: "Registre objetos, locais ou informações relevantes." },
+  ]),
+  finalBuoField,
 ];
 
 export const popProcedures: PopProcedure[] = [

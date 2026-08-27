@@ -1,9 +1,9 @@
 /**
- * NEXO LEGAL is a compact legal-operational PWA. Detail pages show only POPs
- * and legal explanations actually linked to the selected occurrence.
+ * NEXO LEGAL is a compact legal-operational PWA. Detail pages pair verified
+ * POP/legal links with a locally saved BUO draft that adapts to the occurrence.
  */
 import { AppShell, BRAND_MARK_URL, InstallHint } from "@/components/AppShell";
-import { cicomGroups, getLegalBriefsForOccurrence, getProceduresForOccurrence, lawGroups, legalBriefs, occurrences, popProcedures, type Occurrence } from "@/data/appData";
+import { cicomGroups, getBuoFieldsForOccurrence, getLegalBriefsForOccurrence, getProceduresForOccurrence, lawGroups, legalBriefs, occurrences, popProcedures, type Occurrence } from "@/data/appData";
 import {
   ArrowLeft, BellRing, BookOpenText, Building2, CheckCircle2, ChevronRight, ClipboardCheck, ClipboardList,
   Clock3, Download, ExternalLink, FileText, HeartHandshake, Info, Landmark, MapPin, MessageSquare,
@@ -81,6 +81,31 @@ function LawLink({ title, source = "Código Penal", url = "https://www.planalto.
   return <a className="law-link" href={url} target="_blank" rel="noreferrer"><div><strong>{title}</strong><span>{source}</span></div><span>Ver fonte oficial <ExternalLink size={14} /></span></a>;
 }
 
+function useBuoDraft(occurrence: Occurrence) {
+  const storageKey = `nexo-legal-buo-${occurrence.slug}`;
+  const [draft, setDraft] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(window.localStorage.getItem(storageKey) ?? "{}") as Record<string, string>; } catch { return {}; }
+  });
+
+  useEffect(() => {
+    try { window.localStorage.setItem(storageKey, JSON.stringify(draft)); } catch { /* The form remains usable if browser storage is unavailable. */ }
+  }, [draft, storageKey]);
+
+  const update = (field: string, value: string) => setDraft((current) => ({ ...current, [field]: value }));
+  const clear = () => { setDraft({}); try { window.localStorage.removeItem(storageKey); } catch { /* State has already been cleared. */ } };
+  return { draft, update, clear };
+}
+
+function BuoModel({ occurrence }: { occurrence: Occurrence }) {
+  const [open, setOpen] = useState(false);
+  const { draft, update, clear } = useBuoDraft(occurrence);
+  const fields = getBuoFieldsForOccurrence(occurrence);
+  return <Panel className="buo-model"><div className="buo-model__header"><div><span className="eyebrow">Modelo de registro</span><h2>BUO — {occurrence.title}</h2><p>Campos organizados para esta natureza de ocorrência. O rascunho é salvo somente neste aparelho.</p></div><FileText size={24} /></div>
+    <button type="button" className="buo-model__toggle" onClick={() => setOpen((current) => !current)}>{open ? "Fechar modelo" : "Abrir modelo de BUO"}<ChevronRight className={open ? "rotate" : ""} size={18} /></button>
+    {open && <form className="buo-form" onSubmit={(event) => event.preventDefault()}><div className="buo-form__nature"><span>Natureza selecionada</span><strong>{occurrence.title}</strong><small>{occurrence.article}</small></div>{fields.map((field) => <label key={field.id}><span>{field.label}</span>{field.multiline ? <textarea rows={5} value={draft[field.id] ?? ""} onChange={(event) => update(field.id, event.target.value)} placeholder={field.hint} /> : <input value={draft[field.id] ?? ""} onChange={(event) => update(field.id, event.target.value)} placeholder={field.hint} />}</label>)}<div className="buo-form__footer"><small>Rascunho local: os campos não são enviados nem compartilhados pelo aplicativo.</small><button type="button" onClick={clear}>Limpar rascunho</button></div></form>}
+  </Panel>;
+}
+
 function DetailContent({ occurrence, toggle, favorite }: { occurrence: Occurrence; toggle: (slug: string) => void; favorite: boolean }) {
   const linkedProcedures = getProceduresForOccurrence(occurrence.slug);
   const linkedBriefs = getLegalBriefsForOccurrence(occurrence.slug);
@@ -88,6 +113,7 @@ function DetailContent({ occurrence, toggle, favorite }: { occurrence: Occurrenc
     <BackButton />
     <PageHeading eyebrow="Ocorrência" title={occurrence.title} icon={ShieldCheck} />
     <button className={`favorite-button ${favorite ? "is-favorite" : ""}`} onClick={() => toggle(occurrence.slug)}><Star size={17} fill={favorite ? "currentColor" : "none"} /> {favorite ? "Favoritado" : "Favoritar"}</button>
+    <BuoModel key={occurrence.slug} occurrence={occurrence} />
     {linkedProcedures.length > 0 && <Panel><h2>Procedimentos POP vinculados</h2>
       {linkedProcedures.map((procedure) => <div className="pop-card" key={procedure.id}><span className="eyebrow">{procedure.process}</span><div className="pop-card__meta"><b>PROCESSO POP</b><b>{procedure.procedures.length} PROCEDIMENTO(S)</b><b>REFERÊNCIA 2022</b></div>
         <p><b>Finalidade:</b> {procedure.purpose}</p><AccordionBlock title="Procedimentos indexados"><ul>{procedure.procedures.map((name) => <li key={name}>{name}</li>)}</ul></AccordionBlock><p className="muted"><b>Fonte:</b> {procedure.source}.</p></div>)}
